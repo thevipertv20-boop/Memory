@@ -12,9 +12,6 @@ import { Scores } from './hud.js';
 interface Screens {
     home: HTMLElement;
     settings: HTMLElement;
-    settingsTheme: HTMLElement;
-    settingsPlayer: HTMLElement;
-    settingsBoard: HTMLElement;
     game: HTMLElement;
     gameover: HTMLElement;
 }
@@ -26,9 +23,6 @@ function getScreens(): Screens {
     return {
         home: document.getElementById('screen-home') as HTMLElement,
         settings: document.getElementById('screen-settings') as HTMLElement,
-        settingsTheme: document.getElementById('screen-settings-theme') as HTMLElement,
-        settingsPlayer: document.getElementById('screen-settings-player') as HTMLElement,
-        settingsBoard: document.getElementById('screen-settings-board') as HTMLElement,
         game: document.getElementById('screen-game') as HTMLElement,
         gameover: document.getElementById('screen-gameover') as HTMLElement,
     };
@@ -67,28 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startButton.addEventListener('click', () => {
         showScreen(screens.settings, allScreens);
-    });
-
-    /**
-     * Verdrahtet die drei Settings-Menüpunkte mit ihren Detail-Screens
-     * sowie deren Zurück-Buttons mit dem Settings-Hub.
-     */
-    const settingsStepTargets: Array<[string, HTMLElement]> = [
-        ['settings-step-gametheme', screens.settingsTheme],
-        ['settings-step-player', screens.settingsPlayer],
-        ['settings-step-board', screens.settingsBoard],
-    ];
-
-    settingsStepTargets.forEach(([buttonId, target]) => {
-        document.getElementById(buttonId)?.addEventListener('click', () => {
-            showScreen(target, allScreens);
-        });
-    });
-
-    ['settings-back-gametheme', 'settings-back-player', 'settings-back-board'].forEach((buttonId) => {
-        document.getElementById(buttonId)?.addEventListener('click', () => {
-            showScreen(screens.settings, allScreens);
-        });
     });
 
     initSettings((settings) => {

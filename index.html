@@ -58,48 +58,29 @@
     </section>
 
     <!-- Screen: Settings -->
+    <!-- Figma-Referenz "Content5.png": alle drei Options-Gruppen und die
+         Preview stehen gleichzeitig auf EINER Seite, keine Unterseiten mehr.
+         Die untere Tab-Leiste navigiert nicht mehr, sie ist nur noch eine
+         visuelle Gliederung (siehe Kommentar bei .settings__menu-item in
+         _settings.scss). -->
     <section id="screen-settings" class="screen" hidden>
         <div class="settings">
             <div class="settings__panel">
                 <h1 class="settings__title">Settings</h1>
 
-                <nav class="settings__menu">
-                    <button type="button" id="settings-step-gametheme" class="settings__menu-item">
-                        <span class="settings__menu-dot settings__menu-dot--gametheme"></span>
-                        <span class="settings__menu-label">Game theme</span>
-                        <span class="settings__menu-arrow" aria-hidden="true">→</span>
-                    </button>
-                    <button type="button" id="settings-step-player" class="settings__menu-item">
-                        <span class="settings__menu-dot settings__menu-dot--player"></span>
-                        <span class="settings__menu-label">Player</span>
-                        <span class="settings__menu-arrow" aria-hidden="true">→</span>
-                    </button>
-                    <button type="button" id="settings-step-board" class="settings__menu-item">
-                        <span class="settings__menu-dot settings__menu-dot--board"></span>
-                        <span class="settings__menu-label">Board size</span>
-                        <span class="settings__menu-arrow" aria-hidden="true">→</span>
-                    </button>
-                </nav>
-
-                <button id="btn-settings-start" class="btn btn--primary settings__start" type="button">Start</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Screen: Settings - Game theme -->
-    <section id="screen-settings-theme" class="screen" hidden>
-        <div class="settings">
-            <div class="settings__panel">
-                <button type="button" id="settings-back-gametheme" class="settings__back">
-                    <span aria-hidden="true">←</span> Back
-                </button>
-
-                <h1 class="settings__title">Game theme</h1>
-
                 <div class="settings__columns">
                     <div class="settings__options">
                         <fieldset id="settings-group-gametheme" class="settings__group settings__group--gametheme">
-                            <legend class="settings__legend">Game themes</legend>
+                            <legend class="settings__legend">
+                                <svg class="settings__legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 2a10 10 0 1 0 0 20c1.4 0 2-.9 2-1.9 0-.5-.25-.95-.55-1.35-.3-.4-.55-.8-.55-1.35 0-1 .85-1.7 1.85-1.7H16c2.2 0 4-1.8 4-4C20 6 16.4 2 12 2Z" />
+                                    <circle cx="7.5" cy="10.5" r="1.15" fill="currentColor" stroke="none" />
+                                    <circle cx="10.5" cy="6.8" r="1.15" fill="currentColor" stroke="none" />
+                                    <circle cx="15" cy="7.3" r="1.15" fill="currentColor" stroke="none" />
+                                    <circle cx="17" cy="11.5" r="1.15" fill="currentColor" stroke="none" />
+                                </svg>
+                                Game themes
+                            </legend>
 
                             <div class="settings__subgroup">
                                 <span class="settings__sublabel">Layout</span>
@@ -110,6 +91,28 @@
                                 <span class="settings__sublabel">Motif</span>
                                 <div id="settings-theme" class="option-group"></div>
                             </div>
+                        </fieldset>
+
+                        <fieldset id="settings-group-player" class="settings__group settings__group--player">
+                            <legend class="settings__legend">
+                                <svg class="settings__legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="12" cy="8" r="4" />
+                                    <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" />
+                                </svg>
+                                Choose player
+                            </legend>
+                            <div id="settings-player" class="option-group"></div>
+                        </fieldset>
+
+                        <fieldset id="settings-group-board" class="settings__group settings__group--board">
+                            <legend class="settings__legend">
+                                <svg class="settings__legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="7.3" y="3.3" width="12" height="16" rx="2" transform="rotate(8 13.3 11.3)" />
+                                    <rect x="5" y="5" width="12" height="16" rx="2" />
+                                </svg>
+                                Board size
+                            </legend>
+                            <div id="settings-size" class="option-group"></div>
                         </fieldset>
                     </div>
 
@@ -130,42 +133,20 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Screen: Settings - Player -->
-    <section id="screen-settings-player" class="screen" hidden>
-        <div class="settings">
-            <div class="settings__panel">
-                <button type="button" id="settings-back-player" class="settings__back">
-                    <span aria-hidden="true">←</span> Back
-                </button>
+                <div class="settings__tabbar">
+                    <div class="settings__menu">
+                        <span class="settings__menu-item">Game theme</span>
+                        <span class="settings__menu-sep" aria-hidden="true"></span>
+                        <span class="settings__menu-item">Player</span>
+                        <span class="settings__menu-sep" aria-hidden="true"></span>
+                        <span class="settings__menu-item">Board size</span>
+                    </div>
 
-                <h1 class="settings__title">Player</h1>
-
-                <fieldset id="settings-group-player" class="settings__group settings__group--player">
-                    <legend class="settings__legend">Choose player</legend>
-                    <div id="settings-player" class="option-group"></div>
-                </fieldset>
-            </div>
-        </div>
-    </section>
-
-    <!-- Screen: Settings - Board size -->
-    <section id="screen-settings-board" class="screen" hidden>
-        <div class="settings">
-            <div class="settings__panel">
-                <button type="button" id="settings-back-board" class="settings__back">
-                    <span aria-hidden="true">←</span> Back
-                </button>
-
-                <h1 class="settings__title">Board size</h1>
-
-                <fieldset id="settings-group-board" class="settings__group settings__group--board">
-                    <legend class="settings__legend">Board size</legend>
-                    <div id="settings-size" class="option-group"></div>
-                </fieldset>
+                    <button id="btn-settings-start" class="btn btn--primary settings__start" type="button">
+                        <span aria-hidden="true">▷</span> Start
+                    </button>
+                </div>
             </div>
         </div>
     </section>
