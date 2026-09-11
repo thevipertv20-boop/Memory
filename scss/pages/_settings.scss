@@ -1,0 +1,247 @@
+@use '../abstracts/variables' as *;
+
+// Settings-Seite: zentrierte Panel-Karte mit Spielerfarbe/Spielfeldgröße/
+// Game-themes (Layout+Motiv) links, Karten-Vorschau rechts, Schritt-Pills
+// unten.
+// Farben kommen aus den CSS-Variablen des aktiven Layouts (siehe scss/themes/).
+// Gruppen-Punktfarben und Radio-Optik orientieren sich am Figma-Referenzdesign
+// "Settings_theme coding vibes".
+
+.settings {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-lg;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+.settings__panel {
+    width: 100%;
+    max-width: 56rem;
+    padding: $spacing-lg;
+    border-radius: $radius-card;
+    background: var(--color-surface);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+}
+
+.settings__title {
+    position: relative;
+    margin-bottom: $spacing-lg;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 700;
+}
+
+.settings__title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.5rem;
+    width: 2.5rem;
+    height: 0.3rem;
+    border-radius: 999px;
+    background: #f2c94c;
+}
+
+.settings__columns {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: $spacing-lg;
+    align-items: start;
+}
+
+@media (max-width: 700px) {
+    .settings__columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+.settings__options {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+}
+
+.settings__group {
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+}
+
+.settings__legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.settings__legend::before {
+    content: '';
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+}
+
+.settings__group--player .settings__legend::before {
+    background: #2dd4bf;
+}
+
+.settings__group--board .settings__legend::before {
+    background: #38bdf8;
+}
+
+.settings__group--gametheme .settings__legend::before {
+    background: #ec4899;
+}
+
+.settings__subgroup {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    margin-top: $spacing-sm;
+}
+
+.settings__sublabel {
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+.option-group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+}
+
+.option-tile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.25rem 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.option-tile::before {
+    content: '';
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    border: 2px solid var(--color-accent);
+    background: var(--color-surface);
+}
+
+.option-tile:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+.option-tile--selected {
+    font-weight: 700;
+}
+
+.option-tile--selected::before {
+    background: radial-gradient(circle, var(--color-accent) 0 40%, var(--color-surface) 44% 100%);
+}
+
+.settings__preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings__preview-board {
+    position: relative;
+    width: 100%;
+    min-height: 12rem;
+    max-width: 16rem;
+    border-radius: $radius-card;
+    background: #1a1a1a;
+    overflow: hidden;
+}
+
+.settings__preview-board::before {
+    content: '';
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    width: 2.5rem;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: rgba(245, 245, 245, 0.25);
+}
+
+.settings__preview-card {
+    position: absolute;
+    width: 6rem;
+}
+
+.settings__preview-card--back {
+    top: 1.5rem;
+    left: 1.5rem;
+    transform: rotate(-6deg);
+}
+
+.settings__preview-card--front {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    transform: rotate(4deg);
+}
+
+.settings__steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin-top: $spacing-lg;
+}
+
+.settings__step {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;
+    border: none;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.settings__step:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+.settings__start {
+    margin-left: auto;
+    color: #1a1a1a;
+    background: #f2c94c;
+    box-shadow: 0 0.5rem 1.5rem rgba(242, 201, 76, 0.35);
+}
+
+.settings__start:hover {
+    box-shadow: 0 0.75rem 2.25rem rgba(242, 201, 76, 0.5);
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .settings__panel {
+        padding: $spacing-sm;
+    }
+
+    .settings__start {
+        margin-left: 0;
+    }
+}

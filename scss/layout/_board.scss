@@ -1,0 +1,13 @@
+// Spielfeld-Raster: responsive Anordnung je gewählter Größe (4x4 / 4x6 / 6x6).
+// Die Spaltenanzahl wird von game.ts als CSS-Variable --board-columns gesetzt,
+// die Kartenhöhe ergibt sich automatisch über das Seitenverhältnis der Karten.
+
+@use '../abstracts/variables' as *;
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(var(--board-columns, 4), 1fr);
+    gap: $spacing-sm;
+    width: 100%;
+    max-width: 40rem;
+}

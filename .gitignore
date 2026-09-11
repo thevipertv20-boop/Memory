@@ -1,0 +1,8 @@
+# Abhängigkeiten
+node_modules/
+
+# Kompilierter TypeScript-Output
+js/
+
+# Sass-Sourcemaps
+css/*.map

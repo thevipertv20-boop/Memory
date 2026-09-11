@@ -1,0 +1,29 @@
+// Wiederverwendbare Mixins.
+
+// Zentriert ein Element (Flexbox).
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Hebt einen Karten-/Button-Zustand per Box-Shadow hervor.
+@mixin elevate($level: 1) {
+    box-shadow: 0 (0.25rem * $level) (0.5rem * $level) rgba(0, 0, 0, 0.15);
+}
+
+// Sanfte Auf- und Abwärtsbewegung (Schweben) für dekorative Elemente.
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-0.75rem);
+    }
+}
+
+// Wendet die Schwebebewegung an.
+@mixin animate-float($duration: 3s) {
+    animation: float $duration ease-in-out infinite;
+}

@@ -1,0 +1,12 @@
+// Layout "Classic": helles Farbschema + Themengebiet Natur/Tiere.
+// Hier werden die CSS-Variablen des gewählten Layouts definiert.
+// Hinweis: Farbwerte sind vorläufige Platzhalter, die im Gestaltungs-Schritt
+// (Punkt 6) verfeinert werden.
+
+.layout--classic {
+    --color-bg: #f4f1ea;
+    --color-surface: #ffffff;
+    --color-accent: #2f6f5f;
+    --color-text: #22282e;
+    --color-card-back: #3b5d9c;
+}

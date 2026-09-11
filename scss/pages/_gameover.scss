@@ -1,0 +1,41 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Game-Over-Screen: Endstand, Gewinner/Draw und "Play Again"-Button.
+// Nutzt bewusst dieselben .hud__player/.hud__label/.hud__score-Klassen wie
+// der HUD (siehe layout/_hud.scss), damit Punktestand und Spielerfarben
+// optisch konsistent zu Punkt 1–4 bleiben.
+
+.gameover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-lg;
+    padding: $spacing-lg;
+    text-align: center;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+.gameover__title {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.gameover__result {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.gameover__scores {
+    display: flex;
+    gap: $spacing-md;
+}
+
+.gameover__player--winner {
+    border-color: var(--color-accent);
+    @include elevate(2);
+}

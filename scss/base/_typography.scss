@@ -1,0 +1,8 @@
+@use '../abstracts/variables' as *;
+
+// Grundlegende Typografie.
+
+body {
+    font-family: $font-family-base;
+    line-height: 1.5;
+}

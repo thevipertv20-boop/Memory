@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script type="module" src="js/main.js"></script>
+</head>
+
+<body>
+
+    <!-- Screen: Homescreen -->
+    <section id="screen-home" class="screen">
+        <div class="home">
+            <svg class="home__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="6" y1="12" x2="10" y2="12"></line>
+                <line x1="8" y1="10" x2="8" y2="14"></line>
+                <line x1="15" y1="13" x2="15.01" y2="13"></line>
+                <line x1="18" y1="11" x2="18.01" y2="11"></line>
+                <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+            </svg>
+
+            <p class="home__eyebrow">It's play time.</p>
+            <h1 class="home__title">Ready to play?</h1>
+
+            <button id="btn-start" class="btn btn--primary home__cta" type="button">
+                <svg class="home__cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="6" y1="12" x2="10" y2="12"></line>
+                    <line x1="8" y1="10" x2="8" y2="14"></line>
+                    <line x1="15" y1="13" x2="15.01" y2="13"></line>
+                    <line x1="18" y1="11" x2="18.01" y2="11"></line>
+                    <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+                </svg>
+                Play
+                <span aria-hidden="true">→</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Screen: Settings -->
+    <section id="screen-settings" class="screen" hidden>
+        <div class="settings">
+            <div class="settings__panel">
+                <h1 class="settings__title">Settings</h1>
+
+                <div class="settings__columns">
+                    <div class="settings__options">
+                        <fieldset id="settings-group-player" class="settings__group settings__group--player">
+                            <legend class="settings__legend">Choose player</legend>
+                            <div id="settings-player" class="option-group"></div>
+                        </fieldset>
+
+                        <fieldset id="settings-group-board" class="settings__group settings__group--board">
+                            <legend class="settings__legend">Board size</legend>
+                            <div id="settings-size" class="option-group"></div>
+                        </fieldset>
+
+                        <fieldset id="settings-group-gametheme" class="settings__group settings__group--gametheme">
+                            <legend class="settings__legend">Game themes</legend>
+
+                            <div class="settings__subgroup">
+                                <span class="settings__sublabel">Layout</span>
+                                <div id="settings-layout" class="option-group"></div>
+                            </div>
+
+                            <div class="settings__subgroup">
+                                <span class="settings__sublabel">Motif</span>
+                                <div id="settings-theme" class="option-group"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="settings__preview">
+                        <div id="settings-preview-board" class="settings__preview-board theme--tiere">
+                            <div class="card settings__preview-card settings__preview-card--back">
+                                <div class="card__inner">
+                                    <div class="card__face card__face--back"></div>
+                                    <div class="card__face card__face--front"></div>
+                                </div>
+                            </div>
+                            <div class="card card--flipped settings__preview-card settings__preview-card--front">
+                                <div class="card__inner">
+                                    <div class="card__face card__face--back"></div>
+                                    <div class="card__face card__face--front" id="settings-preview-motif">🐶</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings__steps">
+                    <button type="button" id="settings-step-gametheme" class="settings__step" aria-controls="settings-group-gametheme">Game theme</button>
+                    <button type="button" id="settings-step-player" class="settings__step" aria-controls="settings-group-player">Player</button>
+                    <button type="button" id="settings-step-board" class="settings__step" aria-controls="settings-group-board">Board size</button>
+                    <button id="btn-settings-start" class="btn btn--primary settings__start settings__step" type="button">Start</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen: Spiel -->
+    <section id="screen-game" class="screen" hidden>
+        <div class="game">
+            <header class="hud">
+                <div id="hud-player-1" class="hud__player">
+                    <span id="hud-label-1" class="hud__label"></span>
+                    <span id="hud-score-1" class="hud__score">0</span>
+                </div>
+
+                <button id="btn-exit-game" class="btn btn--primary" type="button">Exit Game</button>
+
+                <div id="hud-player-2" class="hud__player">
+                    <span id="hud-label-2" class="hud__label"></span>
+                    <span id="hud-score-2" class="hud__score">0</span>
+                </div>
+            </header>
+
+            <div id="board" class="board"></div>
+        </div>
+    </section>
+
+    <!-- Screen: Game Over (Overlay) -->
+    <section id="screen-gameover" class="screen screen--overlay" hidden>
+        <div class="gameover">
+            <h1 class="gameover__title">Game Over</h1>
+            <p id="gameover-result" class="gameover__result"></p>
+
+            <div class="gameover__scores">
+                <div id="gameover-player-1" class="gameover__player hud__player">
+                    <span id="gameover-label-1" class="hud__label"></span>
+                    <span id="gameover-score-1" class="hud__score">0</span>
+                </div>
+                <div id="gameover-player-2" class="gameover__player hud__player">
+                    <span id="gameover-label-2" class="hud__label"></span>
+                    <span id="gameover-score-2" class="hud__score">0</span>
+                </div>
+            </div>
+
+            <button id="btn-new-round" class="btn btn--primary" type="button">Play Again</button>
+        </div>
+    </section>
+
+</body>
+
+</html>

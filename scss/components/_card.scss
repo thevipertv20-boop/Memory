@@ -1,0 +1,54 @@
+// Einzelne Memory-Karte: Vorder-/Rückseite, 3D-Flip und Zustände.
+// Die Farben der Rückseite/Oberfläche kommen vom aktiven Layout, die
+// Vorderseiten-Färbung vom aktiven Theme (siehe .theme--* weiter unten).
+
+@use '../abstracts/variables' as *;
+
+.card {
+    position: relative;
+    aspect-ratio: 1;
+    padding: 0;
+    border: none;
+    background: none;
+    perspective: 60rem;
+}
+
+.card__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform $transition-flip ease;
+    transform-style: preserve-3d;
+}
+
+.card--flipped .card__inner {
+    transform: rotateY(180deg);
+}
+
+.card__face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-card;
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+    backface-visibility: hidden;
+}
+
+.card__face--back {
+    background: var(--color-card-back);
+}
+
+.card__face--front {
+    background: var(--color-surface);
+    transform: rotateY(180deg);
+}
+
+.theme--tiere .card__face--front {
+    background: linear-gradient(160deg, #eafbea, var(--color-surface));
+}
+
+.theme--obst .card__face--front {
+    background: linear-gradient(160deg, #fff4e6, var(--color-surface));
+}

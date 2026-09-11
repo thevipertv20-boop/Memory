@@ -1,0 +1,17 @@
+// Globale Design-Tokens (Sass-Variablen).
+// Konkrete Farbwerte der Layouts stehen in scss/themes/ und nutzen CSS-Variablen.
+
+$font-family-base: system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+
+$radius-card: 0.75rem;
+
+$transition-fast: 150ms;
+$transition-flip: 400ms;
+
+// Breakpoint für Anpassungen auf sehr schmalen Displays (Feedback: responsiv bis 320px).
+$breakpoint-mobile: 400px;

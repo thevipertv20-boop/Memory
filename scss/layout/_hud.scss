@@ -1,0 +1,79 @@
+// Kopfzeile über dem Spielfeld (HUD): Punktestand, aktiver Spieler, "Exit Game".
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.game {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-lg;
+    padding: $spacing-lg;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .game {
+        padding: $spacing-sm;
+    }
+}
+
+.hud {
+    width: 100%;
+    max-width: 40rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-md;
+    row-gap: $spacing-sm;
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .hud {
+        gap: $spacing-sm;
+    }
+
+    .hud__player {
+        min-width: 4.5rem;
+    }
+}
+
+.hud__player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 6rem;
+    padding: $spacing-sm $spacing-md;
+    border: 2px solid transparent;
+    border-radius: $radius-card;
+    background: var(--color-surface);
+}
+
+.hud__player--active {
+    border-color: var(--color-accent);
+    @include elevate(1);
+}
+
+.hud__player--blau .hud__score {
+    color: #3b5d9c;
+}
+
+.hud__player--orange .hud__score {
+    color: #d9720b;
+}
+
+.hud__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.hud__score {
+    font-size: 1.5rem;
+    font-weight: 700;
+}

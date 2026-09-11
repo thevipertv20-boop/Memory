@@ -1,0 +1,26 @@
+// Einstiegspunkt: bindet alle Partials in sinnvoller Reihenfolge ein.
+
+// 1. Abstraktionen (Variablen, Mixins)
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
+
+// 2. Basis (Reset, Typografie)
+@use 'base/reset';
+@use 'base/typography';
+
+// 3. Komponenten (Buttons, Karten)
+@use 'components/buttons';
+@use 'components/card';
+
+// 4. Layout (Spielfeld, HUD)
+@use 'layout/board';
+@use 'layout/hud';
+
+// 5. Seiten (Home, Settings, Game-Over)
+@use 'pages/home';
+@use 'pages/settings';
+@use 'pages/gameover';
+
+// 6. Themes (Layout-Farbschemata)
+@use 'themes/theme-classic';
+@use 'themes/theme-neon';
