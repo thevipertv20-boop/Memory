@@ -77,3 +77,132 @@
     font-size: 1.5rem;
     font-weight: 700;
 }
+
+// ---------------------------------------------------------------------
+// "Code vibes" HUD-Feinschliff (Neon-Layout, Figma-Frame
+// "Code vibes theme_16"). Alles unter .layout--neon gescoped, damit das
+// Classic-Layout unverändert bleibt. Reine CSS-Umordnung per Flexbox
+// "order" – DOM-Struktur und Spiellogik bleiben unangetastet.
+// ---------------------------------------------------------------------
+
+.layout--neon .hud {
+    position: relative;
+    justify-content: flex-start;
+}
+
+.layout--neon #hud-player-1 {
+    order: 1;
+}
+
+.layout--neon #hud-player-2 {
+    order: 2;
+}
+
+.layout--neon #btn-exit-game {
+    order: 3;
+    margin-left: auto;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid var(--color-accent);
+    box-shadow: none;
+}
+
+.layout--neon #btn-exit-game:hover {
+    transform: none;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.layout--neon .hud__player {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+}
+
+.layout--neon .hud__player--blau {
+    --player-color: #3b82f6;
+}
+
+.layout--neon .hud__player--orange {
+    --player-color: #e8853a;
+}
+
+// Eigener, eng anliegender Rahmen für die aktive Pille im Neon-Layout:
+// gleiche Form wie die Pille selbst (999px) statt der geerbten Radius/
+// Schatten-Kombination aus der geteilten .hud__player--active-Basisregel
+// (Classic bleibt dort unverändert).
+.layout--neon .hud__player--active {
+    border-radius: 999px;
+    box-shadow: none;
+}
+
+.layout--neon .hud__player::before {
+    content: '';
+    flex-shrink: 0;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--player-color);
+}
+
+.layout--neon .hud__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: normal;
+    opacity: 0.85;
+}
+
+.layout--neon .hud__score {
+    font-size: 1rem;
+    color: var(--player-color);
+}
+
+// Zentrierter Hinweis: Label bleibt neutral, nur der Punkt übernimmt die
+// Farbe des aktiven Spielers (gesteuert über die bereits von hud.ts
+// getoggelte .hud__player--active-Klasse, keine JS-Änderung).
+.layout--neon .hud::before {
+    content: 'Current player:';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-100%, -50%) translateX(-0.4em);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+    opacity: 0.85;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.layout--neon .hud__player--active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(0.4em, -50%);
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: var(--player-color);
+    pointer-events: none;
+}
+
+// Solange .hud durch den Viewport eingeengt ist (schmaler als sein
+// eigenes max-width: 40rem, siehe oben), reicht der Platz zwischen
+// Spieler-Pills und Exit-Button nicht für das zentrierte Label + Punkt
+// (gemessen: Overlap noch bei 414px). Bewusst eine eigene Schwelle statt
+// $breakpoint-mobile (400px) – die bleibt für alle anderen Responsive-
+// Regeln unverändert. Der bereits bestehende Rahmen/Schatten auf der
+// aktiven Pille (.hud__player--active) bleibt als Hinweis erhalten.
+@media (max-width: 40rem) {
+    .layout--neon .hud::before,
+    .layout--neon .hud__player--active::after {
+        display: none;
+    }
+}

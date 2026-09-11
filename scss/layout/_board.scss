@@ -11,3 +11,12 @@
     width: 100%;
     max-width: 40rem;
 }
+
+// Kleinerer Gap auf sehr schmalen Screens, damit 6-spaltige Boards (4x6,
+// 6x6) noch brauchbar große Karten behalten (siehe Responsive-Check
+// 320/375px).
+@media (max-width: $breakpoint-mobile) {
+    .board {
+        gap: $spacing-xs;
+    }
+}
