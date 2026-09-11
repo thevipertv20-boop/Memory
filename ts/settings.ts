@@ -120,27 +120,6 @@ export function initSettings(onStart: (settings: GameSettings) => void): void {
     updatePreview(state.theme);
     render();
 
-    /**
-     * Verdrahtet die drei Schritt-Buttons unten: Klick scrollt zum jeweiligen
-     * Einstellungsbereich und setzt den Fokus auf dessen erste Option.
-     * Rein navigatorisch – ändert keinen State und keine Auswahl-Logik.
-     */
-    const stepTargets: Array<[string, string]> = [
-        ['settings-step-gametheme', 'settings-group-gametheme'],
-        ['settings-step-player', 'settings-group-player'],
-        ['settings-step-board', 'settings-group-board'],
-    ];
-
-    stepTargets.forEach(([buttonId, targetId]) => {
-        const stepButton = document.getElementById(buttonId) as HTMLButtonElement;
-        const target = document.getElementById(targetId) as HTMLElement;
-
-        stepButton.addEventListener('click', () => {
-            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            target.querySelector<HTMLElement>('.option-tile')?.focus();
-        });
-    });
-
     startButton.addEventListener('click', () => {
         onStart({
             player1Color: state.player1Color,

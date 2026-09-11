@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="css/main.css">
     <script type="module" src="js/main.js"></script>
 </head>
@@ -45,18 +46,41 @@
             <div class="settings__panel">
                 <h1 class="settings__title">Settings</h1>
 
+                <nav class="settings__menu">
+                    <button type="button" id="settings-step-gametheme" class="settings__menu-item">
+                        <span class="settings__menu-dot settings__menu-dot--gametheme"></span>
+                        <span class="settings__menu-label">Game theme</span>
+                        <span class="settings__menu-arrow" aria-hidden="true">→</span>
+                    </button>
+                    <button type="button" id="settings-step-player" class="settings__menu-item">
+                        <span class="settings__menu-dot settings__menu-dot--player"></span>
+                        <span class="settings__menu-label">Player</span>
+                        <span class="settings__menu-arrow" aria-hidden="true">→</span>
+                    </button>
+                    <button type="button" id="settings-step-board" class="settings__menu-item">
+                        <span class="settings__menu-dot settings__menu-dot--board"></span>
+                        <span class="settings__menu-label">Board size</span>
+                        <span class="settings__menu-arrow" aria-hidden="true">→</span>
+                    </button>
+                </nav>
+
+                <button id="btn-settings-start" class="btn btn--primary settings__start" type="button">Start</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen: Settings - Game theme -->
+    <section id="screen-settings-theme" class="screen" hidden>
+        <div class="settings">
+            <div class="settings__panel">
+                <button type="button" id="settings-back-gametheme" class="settings__back">
+                    <span aria-hidden="true">←</span> Back
+                </button>
+
+                <h1 class="settings__title">Game theme</h1>
+
                 <div class="settings__columns">
                     <div class="settings__options">
-                        <fieldset id="settings-group-player" class="settings__group settings__group--player">
-                            <legend class="settings__legend">Choose player</legend>
-                            <div id="settings-player" class="option-group"></div>
-                        </fieldset>
-
-                        <fieldset id="settings-group-board" class="settings__group settings__group--board">
-                            <legend class="settings__legend">Board size</legend>
-                            <div id="settings-size" class="option-group"></div>
-                        </fieldset>
-
                         <fieldset id="settings-group-gametheme" class="settings__group settings__group--gametheme">
                             <legend class="settings__legend">Game themes</legend>
 
@@ -89,13 +113,42 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="settings__steps">
-                    <button type="button" id="settings-step-gametheme" class="settings__step" aria-controls="settings-group-gametheme">Game theme</button>
-                    <button type="button" id="settings-step-player" class="settings__step" aria-controls="settings-group-player">Player</button>
-                    <button type="button" id="settings-step-board" class="settings__step" aria-controls="settings-group-board">Board size</button>
-                    <button id="btn-settings-start" class="btn btn--primary settings__start settings__step" type="button">Start</button>
-                </div>
+    <!-- Screen: Settings - Player -->
+    <section id="screen-settings-player" class="screen" hidden>
+        <div class="settings">
+            <div class="settings__panel">
+                <button type="button" id="settings-back-player" class="settings__back">
+                    <span aria-hidden="true">←</span> Back
+                </button>
+
+                <h1 class="settings__title">Player</h1>
+
+                <fieldset id="settings-group-player" class="settings__group settings__group--player">
+                    <legend class="settings__legend">Choose player</legend>
+                    <div id="settings-player" class="option-group"></div>
+                </fieldset>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen: Settings - Board size -->
+    <section id="screen-settings-board" class="screen" hidden>
+        <div class="settings">
+            <div class="settings__panel">
+                <button type="button" id="settings-back-board" class="settings__back">
+                    <span aria-hidden="true">←</span> Back
+                </button>
+
+                <h1 class="settings__title">Board size</h1>
+
+                <fieldset id="settings-group-board" class="settings__group settings__group--board">
+                    <legend class="settings__legend">Board size</legend>
+                    <div id="settings-size" class="option-group"></div>
+                </fieldset>
             </div>
         </div>
     </section>
