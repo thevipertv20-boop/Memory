@@ -10,53 +10,96 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: $spacing-sm;
     padding: $spacing-lg;
     overflow: hidden;
-    text-align: center;
+    text-align: left;
     color: #f5f5f5;
-    background: #1a1a1a;
+    background: #303131; // Figma Home Frame
+}
+
+.home__content {
+    // Figma: Content-/Titelbereich ist 991px breit und liegt horizontal zentriert
+    // im 1440px Frame (Left: 225px = (1440 - 991) / 2). Statt des festen Left-Werts
+    // wird der Bereich per margin-inline: auto responsiv zentriert.
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; // damit .home__title-group ueber die volle 991px zentrieren kann
+    gap: $spacing-sm;
+    width: 991px;
+    margin-inline: auto;
+    // Fester Top-Offset statt justify-content:center auf .home: 348,7px (Figma Eyebrow-Y)
+    // minus .home padding-top (32px) = 316,7px, damit die Position nicht mehr von der
+    // Gesamthoehe des Blocks (und damit von Gap-Aenderungen) abhaengt.
+    margin-top: 316.7px;
 }
 
 .home__eyebrow {
-    font-size: 1rem;
-    color: rgba(245, 245, 245, 0.7);
+    // Exakte Figma-Inspect-Werte fuer "It's play time." (265x54px, hug contents)
+    font-family: 'Almarai', sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1; // 100%
+    letter-spacing: 0;
+    color: #ffffff;
+}
+
+.home__title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // Figma: Abstand Titel-Unterkante -> Button-Oberkante = 95,3px gemessen (Home.jpg).
+    // Der zuvor verdoppelte Wert (176px) war eine Kompensation fuer justify-content:center
+    // auf .home; da .home__content jetzt per festem Top-Offset positioniert wird, entfaellt
+    // dieser Ausgleich und der direkt gemessene Wert gilt wieder unveraendert.
+    gap: 95.3px;
 }
 
 .home__title {
-    font-size: clamp(2rem, 6vw, 3rem);
+    // Exakte Figma-Inspect-Werte fuer "Ready to play?"
+    font-family: 'Red Rose', sans-serif;
+    font-size: 140px;
     font-weight: 700;
-    margin-bottom: $spacing-sm;
+    line-height: 1; // 100%
+    letter-spacing: 0;
+    color: #ffffff;
+    text-align: center;
 }
 
 .home__icon {
+    // Exakte Figma-Inspect-Werte (Home Frame 1440x1024):
     position: absolute;
-    left: -11rem;
-    bottom: -11rem;
-    width: 14rem;
-    height: 14rem;
-    color: #f5f5f5;
-    opacity: 0.06;
+    left: -88px;
+    top: 546px;
+    width: 414.31px;
+    height: 301.31px;
+    // Kein Rotation-Wert im tatsaechlichen Figma-Home-Frame erkennbar (siehe Bildanalyse) - entfernt.
+    // url(#icon-gold-fill): erzwingt Figma-Farbe #F0EA6E auf der (alpha-korrigierten)
+    // Silhouette des Original-PNGs, siehe index.html.
+    filter: url(#icon-gold-fill);
+    opacity: 0.05;
     pointer-events: none;
 }
 
 .home__cta {
+    // Exakte Figma-Inspect-Werte: aeussere Button-Groesse
+    width: 249.7px;
+    height: 97.7px;
     display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.65rem 1.5rem;
-    color: #1a1a1a;
-    background: #f2c94c;
-    box-shadow: 0 0.5rem 1.5rem rgba(242, 201, 76, 0.35);
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    transition: transform $transition-fast ease;
 }
 
 .home__cta:hover {
-    box-shadow: 0 0.75rem 2.25rem rgba(242, 201, 76, 0.5);
+    transform: scale(1.05);
 }
 
-.home__cta-icon {
-    width: 1.25rem;
-    height: 1.25rem;
+.home__cta-image {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
