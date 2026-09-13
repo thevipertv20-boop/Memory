@@ -24,6 +24,16 @@ export enum ThemeName {
     Obst = 'obst',
 }
 
+// Die vier waehlbaren "Game themes" aus dem Figma-Screen "Settings_theme
+// coding vibes". Jedes davon wird ueber GAME_THEME_CONFIG (config.ts) auf
+// ein bestehendes Layout+ThemeName-Paar abgebildet.
+export enum GameThemeName {
+    CodeVibes = 'codevibes',
+    Gaming = 'gaming',
+    DaProjects = 'daprojects',
+    Foods = 'foods',
+}
+
 export interface GameSettings {
     player1Color: PlayerColor;
     player2Color: PlayerColor;

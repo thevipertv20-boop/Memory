@@ -61,12 +61,11 @@
     <!-- Figma-Referenz "Content5.png": alle drei Options-Gruppen und die
          Preview stehen gleichzeitig auf EINER Seite, keine Unterseiten mehr.
          Die untere Tab-Leiste navigiert nicht mehr, sie ist nur noch eine
-         visuelle Gliederung (siehe Kommentar bei .settings__menu-item in
-         _settings.scss). -->
+         visuelle Gliederung. -->
     <section id="screen-settings" class="screen" hidden>
         <div class="settings">
             <div class="settings__panel">
-                <h1 class="settings__title">Settings</h1>
+                <h1 class="settings__title"><img src="Img/Icons/Headline.png" width="263" height="79" alt="Settings"></h1>
 
                 <div class="settings__columns">
                     <div class="settings__options">
@@ -82,15 +81,7 @@
                                 Game themes
                             </legend>
 
-                            <div class="settings__subgroup">
-                                <span class="settings__sublabel">Layout</span>
-                                <div id="settings-layout" class="option-group"></div>
-                            </div>
-
-                            <div class="settings__subgroup">
-                                <span class="settings__sublabel">Motif</span>
-                                <div id="settings-theme" class="option-group"></div>
-                            </div>
+                            <div id="settings-gametheme" class="option-group"></div>
                         </fieldset>
 
                         <fieldset id="settings-group-player" class="settings__group settings__group--player">
@@ -117,35 +108,18 @@
                     </div>
 
                     <div class="settings__preview">
-                        <div id="settings-preview-board" class="settings__preview-board theme--tiere">
-                            <div class="card settings__preview-card settings__preview-card--back">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--back"></div>
-                                    <div class="card__face card__face--front"></div>
-                                </div>
-                            </div>
-                            <div class="card card--flipped settings__preview-card settings__preview-card--front">
-                                <div class="card__inner">
-                                    <div class="card__face card__face--back"></div>
-                                    <div class="card__face card__face--front" id="settings-preview-motif">🐶</div>
-                                </div>
-                            </div>
-                        </div>
+                        <img class="settings__preview-image" src="Img/Theme Visual.png" width="460" height="412" alt="Vorschau: Code vibes Theme">
                     </div>
                 </div>
 
+                <!-- Figma-Asset "Img/selection + button.png": komplette Leiste
+                     (Labels, Trenner, Start-Button-Optik) als ein Bild - der
+                     Start-Button bleibt als unsichtbares, exakt darueber
+                     positioniertes <button> real klickbar (siehe
+                     .settings__start-hit in _settings.scss). -->
                 <div class="settings__tabbar">
-                    <div class="settings__menu">
-                        <span class="settings__menu-item">Game theme</span>
-                        <span class="settings__menu-sep" aria-hidden="true"></span>
-                        <span class="settings__menu-item">Player</span>
-                        <span class="settings__menu-sep" aria-hidden="true"></span>
-                        <span class="settings__menu-item">Board size</span>
-                    </div>
-
-                    <button id="btn-settings-start" class="btn btn--primary settings__start" type="button">
-                        <span aria-hidden="true">▷</span> Start
-                    </button>
+                    <img class="settings__tabbar-image" src="Img/selection + button.png" width="547" height="81" alt="Game theme / Player / Board size">
+                    <button id="btn-settings-start" class="settings__start-hit" type="button" aria-label="Start"></button>
                 </div>
             </div>
         </div>

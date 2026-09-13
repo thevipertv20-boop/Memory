@@ -1,9 +1,7 @@
 @use '../abstracts/variables' as *;
 
 // Settings-Seite: zentrierte Panel-Karte mit Spielerfarbe/Spielfeldgröße/
-// Game-themes (Layout+Motiv) links, Karten-Vorschau rechts, Schritt-Pills
-// unten.
-// Farben kommen aus den CSS-Variablen des aktiven Layouts (siehe scss/themes/).
+// Game-themes links, Karten-Vorschau rechts, Schritt-Pills unten.
 // Gruppen-Punktfarben und Radio-Optik orientieren sich am Figma-Referenzdesign
 // "Settings_theme coding vibes".
 
@@ -14,6 +12,15 @@
     align-items: center;
     justify-content: center;
     padding: $spacing-lg;
+    // Figma: die Settings-Seite selbst bleibt immer hell, unabhaengig vom
+    // gewaehlten Game-theme - nur die Karten-Vorschau rechts zeigt das
+    // gewaehlte Theme dunkel an. Deshalb hier feste Farben statt der
+    // Layout-Variablen aus scss/themes/, die sonst per body-Klasse
+    // (siehe applyGameTheme in ts/settings.ts) global umgeschaltet werden.
+    --color-bg: #f8f8f6;
+    --color-surface: #ffffff;
+    --color-text: #1a1a1a;
+    --color-accent: #2f6f5f;
     background: var(--color-bg);
     color: var(--color-text);
 }
@@ -30,34 +37,19 @@
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
 }
 
+// Figma-Asset "Img/Icons/Headline.png": "Settings"-Schriftzug inkl. gelber
+// Rauten+Linien-Markierung bereits fertig als Grafik exportiert - kein
+// Nachbau mehr per Text/Pseudo-Elementen noetig.
 .settings__title {
-    // Figma-Referenz "Headline.png": groß, sehr fett, mit gelber
-    // Rauten+Linien-Markierung darunter statt eines schlichten Balkens.
     position: relative;
     margin-bottom: $spacing-lg + 0.5rem;
-    font-size: clamp(2rem, 6vw, 3rem);
-    font-weight: 800;
+    line-height: 0; // entfernt den Leerraum unter dem <img> im <h1>
 }
 
-.settings__title::before {
-    content: '';
-    position: absolute;
-    left: 0.1rem;
-    bottom: -0.6rem;
-    width: 0.55rem;
-    height: 0.55rem;
-    transform: rotate(45deg);
-    background: #f2e26a;
-}
-
-.settings__title::after {
-    content: '';
-    position: absolute;
-    left: 0.9rem;
-    bottom: -0.35rem;
-    width: 6rem;
-    height: 0.15rem;
-    background: #f2e26a;
+.settings__title img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 .settings__columns {
@@ -120,19 +112,6 @@
     color: #ec4899;
 }
 
-.settings__subgroup {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-sm;
-    margin-top: $spacing-sm;
-}
-
-.settings__sublabel {
-    font-size: 0.85rem;
-    font-weight: 600;
-    opacity: 0.7;
-}
-
 .option-group {
     display: flex;
     flex-direction: column;
@@ -177,126 +156,110 @@
     background: radial-gradient(circle, var(--color-accent) 0 40%, var(--color-surface) 44% 100%);
 }
 
+// Figma-Referenz "Img/Content5.png": nur bei "Game themes" bekommt die
+// gewaehlte Option zusaetzlich eine gelbe Linie+Raute (gleiches Motiv wie
+// im Headline.png-Asset), bei Choose player/Board size taucht das Element
+// nicht auf. Kein eigenes Asset dafuer vorhanden, daher per CSS gebaut.
+.option-tile__marker {
+    position: relative;
+    display: inline-block;
+    width: 2rem;
+    height: 0.5rem;
+    margin-left: 0.25rem;
+}
+
+.option-tile__marker::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: calc(100% - 0.45rem);
+    height: 0.12rem;
+    transform: translateY(-50%);
+    background: #f2e26a;
+}
+
+.option-tile__marker::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0.4rem;
+    height: 0.4rem;
+    transform: translateY(-50%) rotate(45deg);
+    background: #f2e26a;
+}
+
 .settings__preview {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.settings__preview-board {
-    // Figma-Referenz "Theme Visual.png": dunkles Panel mit zwei grossen,
-    // gegeneinander gekippten Karten mit spuerbarem Schlagschatten.
-    position: relative;
+.settings__preview-image {
+    // Figma-Asset "Img/Theme Visual.png": fertiges Vorschau-Panel (dunkler
+    // Rahmen, HUD-Zeile, beide Karten) bereits vollstaendig als Grafik
+    // exportiert (460x412px Original) - kein Nachbau mehr per CSS/Karten-
+    // Komponente noetig.
+    display: block;
     width: 100%;
-    min-height: 14rem;
-    max-width: 18rem;
+    max-width: 28.75rem; // 460px
+    height: auto;
     border-radius: $radius-card;
-    background: linear-gradient(160deg, #2b2b2b, #1a1a1a);
-    overflow: hidden;
 }
 
-.settings__preview-board::before {
-    content: '';
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    width: 2.5rem;
-    height: 0.35rem;
-    border-radius: 999px;
-    background: rgba(245, 245, 245, 0.25);
-}
-
-.settings__preview-card {
-    position: absolute;
-    width: 7.5rem;
-    filter: drop-shadow(0 0.75rem 1.5rem rgba(0, 0, 0, 0.45));
-}
-
-.settings__preview-card--back {
-    top: 2rem;
-    left: 1.75rem;
-    transform: rotate(-8deg);
-}
-
-.settings__preview-card--front {
-    bottom: 2rem;
-    right: 1.75rem;
-    transform: rotate(6deg);
-}
-
-// Figma-Referenz "selection + button.png": horizontale Tab-Leiste mit
-// gelben Diagonal-Trennern, Start-Button rechts daneben in derselben
-// Zeile. Alle drei Bereiche sind bereits oben auf derselben Seite
-// sichtbar - die Leiste ist bewusst nicht mehr interaktiv (reine
-// Gliederung/Legende statt Unterseiten-Navigation).
+// Figma-Asset "Img/selection + button.png": komplette Leiste (Labels,
+// gelbe Diagonal-Trenner UND Start-Button-Optik) bereits fertig als ein
+// Bild exportiert - kein Nachbau mehr per Text/Flexbox noetig. Der
+// Start-Button muss trotzdem ein echtes klickbares <button>-Element bleiben
+// (startet das Spiel); dafuer liegt ein unsichtbares .settings__start-hit
+// exakt auf der im Bild sichtbaren Button-Flaeche (in Img/selection +
+// button.png gemessen: Button bei x=400-525/y=14-66 innerhalb des
+// 547x81px-Bildes -> als Prozentwerte, damit es bei jeder Bildgroesse
+// exakt sitzt).
 .settings__tabbar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: $spacing-sm;
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 34.1875rem; // 547px
     margin-top: $spacing-lg;
-    padding-top: $spacing-md;
-    border-top: 1px solid var(--color-bg);
 }
 
-.settings__menu {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: $spacing-md;
+.settings__tabbar-image {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
-.settings__menu-item {
-    color: var(--color-text);
-    font-size: 1rem;
-    font-weight: 600;
-    opacity: 0.75;
+.settings__start-hit {
+    position: absolute;
+    left: 73.13%; // 400 / 547
+    top: 17.28%; // 14 / 81
+    width: 23.03%; // 126 / 547
+    height: 65.43%; // 53 / 81
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
 }
 
-.settings__menu-sep {
-    display: inline-block;
-    width: 0.2rem;
-    height: 1.4rem;
-    border-radius: 999px;
-    background: #f2e26a;
-    transform: rotate(20deg);
-}
-
-.settings__start {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-    border-radius: $radius-card; // Figma: sanft abgerundetes Rechteck, keine volle Pille
-    color: #1a1a1a;
-    background: #f2e26a;
-    box-shadow: 0 0.5rem 1.5rem rgba(242, 201, 76, 0.35);
-}
-
-.settings__start:hover {
-    box-shadow: 0 0.75rem 2.25rem rgba(242, 201, 76, 0.5);
+.settings__start-hit:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
 }
 
 @media (max-width: $breakpoint-mobile) {
     .settings__panel {
         padding: $spacing-sm;
     }
-
-    .settings__tabbar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .settings__start {
-        justify-content: center;
-    }
 }
 
-// Exakte Figma-Inspect-Werte (Frame 1440x1024, "Settings_theme coding vibes"):
-// Headline bei left:173/top:114 (hug 251x67), Content-Block (Options+Preview
-// links/rechts + Tabbar) bei left:170/top:243, Breite 1103px. Kein Card-
-// Hintergrund/Schatten - Figma zeigt die Inhalte flach auf der Seite.
+// Exakte Figma-Inspect-Werte (Frame 1440x1024, "Settings_theme coding vibes"),
+// 3. Abgleichsrunde: Headline bei left:173/top:114 (hug 251x67), Options-Spalte
+// beginnt bei left:170/top:243 (694px breit), Preview beginnt bei left:864/top:243
+// (460x412px), Tabbar direkt unter der Preview (gleiche Breite 460px, Hoehe
+// ~81px). Kein Card-Hintergrund/Schatten - Figma zeigt die Inhalte flach auf
+// der Seite.
 // Muss NACH den Basis-Regeln oben stehen (gleiche Spezifitaet, Cascade-Reihenfolge
 // entscheidet sonst statt der Media Query).
 @media (min-width: 1440px) {
@@ -309,7 +272,8 @@
         position: absolute;
         left: 170px;
         top: 114px;
-        width: 1103px;
+        // 1154px = Preview-Ende (864 + 460) - Content-Start (170).
+        width: 1154px;
         max-width: none;
         padding: 0;
         border-radius: 0;
@@ -322,55 +286,73 @@
         margin-bottom: 62px; // 243 (Content-Top) - 114 (Headline-Top) - 67 (Headline-Hoehe)
     }
 
-    // Figma-Zielhoehe des Options+Preview-Blocks: 412px (hug). Figma listet
-    // "Game themes" als EINE flache 4er-Liste; wir behalten bewusst die
-    // getrennten Layout-/Motiv-Unterlisten (Datenmodell/Funktionalitaet
-    // unveraendert), was 2 zusaetzliche Zeilen kostet - daher so kompakt wie
-    // moeglich, um trotzdem so nah wie moeglich an 412px heranzukommen.
+    // Abstaende in Img/Content5.png ausgemessen (Pixel-Scan der Textzeilen):
+    // Options-Zeilen liegen 36px auseinander (Zeile-zu-Zeile), Ueberschrift
+    // zu erster Option 20px, und zwischen zwei Gruppen (Ende letzte Option
+    // zu naechster Ueberschrift) 58px. Seit "Game themes" auf eine flache
+    // 4er-Liste umgestellt wurde (GAME_THEMES/GAME_THEME_CONFIG in
+    // ts/config.ts), ist genug Hoehe fuer diese grosszuegigeren
+    // Original-Abstaende vorhanden (die Optionsspalte ist eigenstaendig,
+    // unabhaengig von der Preview-Hoehe - siehe .settings__tabbar unten).
     .settings__options {
-        gap: 0.65rem;
+        gap: 3.625rem; // 58px
     }
 
     .settings__group {
-        gap: 0.4rem;
+        gap: 1.25rem; // 20px
     }
 
     .settings__legend {
-        font-size: 0.95rem;
-        gap: 0.45rem;
+        font-size: 1.15rem;
+        gap: 0.6rem;
     }
 
     .settings__legend-icon {
-        width: 1.1rem;
-        height: 1.1rem;
-    }
-
-    .settings__subgroup {
-        gap: 0.35rem;
-        margin-top: 0.4rem;
-    }
-
-    .settings__sublabel {
-        font-size: 0.75rem;
+        width: 1.3rem;
+        height: 1.3rem;
     }
 
     .option-group {
-        gap: 0.4rem;
-        margin-left: calc(1.1rem + 0.45rem);
+        gap: 1rem; // 36px Zeilenabstand minus Zeilenhoehe
+        margin-left: calc(1.3rem + 0.6rem);
     }
 
     .option-tile {
-        gap: 0.5rem;
-        padding: 0.1rem 0;
-        font-size: 0.9rem;
+        gap: 0.6rem;
+        padding: 0.15rem 0;
+        font-size: 1rem;
     }
 
     .option-tile::before {
-        width: 0.9rem;
-        height: 0.9rem;
+        width: 1rem;
+        height: 1rem;
     }
 
+    // Options-Spalte 694px (170 bis 864), Preview-Spalte 460px (864 bis 1324),
+    // keine Luecke - die Spaltenbreiten selbst ergeben den Figma-Abstand.
+    .settings__columns {
+        grid-template-columns: 694px 460px;
+        gap: 0;
+    }
+
+    // Img/Theme Visual.png ist bereits exakt 460 x 412px (Original-Export) -
+    // in der 1440px-Ansicht 1:1 in Originalgroesse zeigen.
+    .settings__preview-image {
+        max-width: 460px;
+    }
+
+    // Tabbar jetzt das Original-Asset "Img/selection + button.png"
+    // (547x81px) in Originalgroesse. Position per direktem Pixel-Vergleich
+    // des Figma-Screenshots ermittelt: rechte Kante liegt auf der
+    // Preview-Kante (864 + 460 = 1324) -> left = 1324 - 547 - 170
+    // (Content-Start) = 607px relativ. top = Preview-Ende (243 + 412 = 655)
+    // + 44px Abstand - 114 (Panel-Top) = 585px.
     .settings__tabbar {
-        margin-top: 40px;
+        position: absolute;
+        left: 607px;
+        top: 585px;
+        width: 547px;
+        max-width: none;
+        margin-top: 0;
     }
 }
