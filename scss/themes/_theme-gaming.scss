@@ -1,0 +1,13 @@
+// Layout "Gaming": pinkes Farbschema, angelehnt an den Figma-Referenz-
+// Screenshot "Img/Frame 628 (1).png" (helle Seite, pinke HUD-Chips/Karte).
+// #ec4899 ist bereits an anderer Stelle im Projekt der etablierte Pink-Akzent
+// (siehe .settings__group--gametheme .settings__legend-icon in
+// scss/pages/_settings.scss).
+
+.layout--gaming {
+    --color-bg: #fdf2f8;
+    --color-surface: #ffffff;
+    --color-accent: #ec4899;
+    --color-text: #1a1a1a;
+    --color-card-back: #ec4899;
+}

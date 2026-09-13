@@ -20,7 +20,23 @@ export function createCardElement(card: CardData, onClick: (id: number) => void)
 
     const front = document.createElement('div');
     front.className = 'card__face card__face--front';
-    front.textContent = card.motif;
+    // "Code vibes"-Theme nutzt echte Icon-Grafiken (ganze Datei) als Motiv,
+    // "Gaming"-Theme nutzt "Img/Icons/Game card N.png"-Sprites (je Datei
+    // zwei uebereinander gestapelte Kacheln - hier wird per CSS-Hintergrund
+    // gezielt nur die untere Motiv-Kachel gezeigt, siehe .card__face--sprite
+    // in scss/components/_card.scss). Alle anderen Themes bleiben Emoji-Text.
+    if (card.motif.includes('Game card ')) {
+        front.classList.add('card__face--sprite');
+        front.style.backgroundImage = `url("${card.motif}")`;
+    } else if (card.motif.endsWith('.png')) {
+        const image = document.createElement('img');
+        image.className = 'card__motif-image';
+        image.src = card.motif;
+        image.alt = '';
+        front.appendChild(image);
+    } else {
+        front.textContent = card.motif;
+    }
 
     inner.append(back, front);
     button.append(inner);

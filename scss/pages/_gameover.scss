@@ -25,9 +25,18 @@
     letter-spacing: 0.04em;
 }
 
-.gameover__result {
-    font-size: 1.5rem;
-    font-weight: 600;
+// Sichtbarer Text ist durch die Figma-Assets (Winner/Draw-Bilder) ersetzt,
+// bleibt aber fuer Screenreader erhalten.
+.gameover__result-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .gameover__scores {
@@ -38,4 +47,35 @@
 .gameover__player--winner {
     border-color: var(--color-accent);
     @include elevate(2);
+}
+
+// Figma-Assets "Img/Content2 (1).png" / "Content3 (1).png" / "Content4 (1).png":
+// je nach Ausgang (Winner Orange/Blue oder Draw) zeigt ts/gameover.ts das
+// passende Bild. Der "Back to start"-Button ist im Bild bereits sichtbar -
+// .gameover__outcome-hit ist ein unsichtbares, aber echtes <button> exakt
+// darueber (Position/Groesse werden von ts/gameover.ts als Inline-Style in
+// Prozent gesetzt, aus dem jeweiligen Bild pixelgenau vermessen).
+.gameover__outcome {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.gameover__outcome-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.gameover__outcome-hit {
+    position: absolute;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.gameover__outcome-hit:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
 }

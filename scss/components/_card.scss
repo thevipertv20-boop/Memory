@@ -53,8 +53,39 @@
     background: linear-gradient(160deg, #fff4e6, var(--color-surface));
 }
 
+// "Code vibes"-Kartenvorderseite zeigt eine echte Icon-Grafik (siehe
+// THEME_MOTIFS[CodeIcons] in ts/config.ts und card.ts) statt Emoji-Text.
+.card__motif-image {
+    width: 62%;
+    height: 62%;
+    object-fit: contain;
+}
+
+// "Gaming"-Kartenvorderseite: die Datei "Img/Icons/Game card N.png" enthaelt
+// zwei uebereinander gestapelte 145x134px-Kacheln (oben Kartenrueckseite,
+// unten das Motiv). background-size:cover + position:bottom zeigt nur die
+// untere Kachel (das Motiv), ohne die Datei zu beschneiden/umzubenennen -
+// das Bild selbst bleibt unveraendert, nur der sichtbare Ausschnitt per CSS
+// gesteuert. background-image wird inline von card.ts gesetzt (Motiv variiert
+// je Karte), hier nur repeat/position/size (keine Shorthand, sonst wuerde
+// die background-color von .card__face--front ueberschrieben).
+.card__face--sprite {
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
 // "Code vibes" Kartenrückseite (Neon-Layout, Figma-Frame "Code vibes
 // theme_16"): Memory-Symbol (Controller-Icon) über dem Türkis/Grün-Verlauf.
 .layout--neon .card__face--back {
     background: var(--card-back-icon) center / 42% no-repeat, var(--color-card-back);
+}
+
+// "Gaming"-Kartenrückseite: dieselbe Original-Kartenrueckseite, die auch in
+// jeder "Img/Icons/Game card N.png"-Datei oben enthalten ist (identisch in
+// allen 18 Dateien) - hier exemplarisch ueber Datei 1 referenziert, nur die
+// obere Kachel sichtbar (position:top statt bottom).
+.layout--gaming .card__face--back {
+    // Pfad relativ zur kompilierten css/main.css (Img/ liegt neben css/).
+    background: url("../Img/Icons/Game card 1.png") top / cover no-repeat, var(--color-card-back);
 }

@@ -147,10 +147,17 @@
     </section>
 
     <!-- Screen: Game Over (Overlay) -->
+    <!-- Figma-Assets "Img/Content2 (1).png" (Winner Orange), "Img/Content3 (1).png"
+         (Winner Blue) und "Img/Content4 (1).png" (Draw): je nach Ausgang wird das
+         passende Bild angezeigt. Der "Back to start"-Button ist in den Bildern
+         bereits eingezeichnet - #btn-new-round bleibt ein echtes klickbares
+         <button>, unsichtbar exakt darueber positioniert (siehe
+         .gameover__outcome-hit in _gameover.scss), analog zum Settings-Start-
+         Button. -->
     <section id="screen-gameover" class="screen screen--overlay" hidden>
         <div class="gameover">
             <h1 class="gameover__title">Game Over</h1>
-            <p id="gameover-result" class="gameover__result"></p>
+            <p id="gameover-result" class="gameover__result-sr"></p>
 
             <div class="gameover__scores">
                 <div id="gameover-player-1" class="gameover__player hud__player">
@@ -163,7 +170,10 @@
                 </div>
             </div>
 
-            <button id="btn-new-round" class="btn btn--primary" type="button">Play Again</button>
+            <div class="gameover__outcome">
+                <img id="gameover-outcome-image" class="gameover__outcome-image" src="" alt="">
+                <button id="btn-new-round" class="gameover__outcome-hit" type="button" aria-label="Play Again"></button>
+            </div>
         </div>
     </section>
 

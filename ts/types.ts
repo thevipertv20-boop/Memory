@@ -17,11 +17,18 @@ export enum BoardSize {
 export enum LayoutName {
     Classic = 'classic',
     Neon = 'neon',
+    Gaming = 'gaming',
 }
 
 export enum ThemeName {
     Tiere = 'tiere',
     Obst = 'obst',
+    // Kartenvorderseiten des "Code vibes"-Themes: echte Icon-Grafiken aus
+    // Img/Icons statt Emoji (siehe THEME_MOTIFS in config.ts).
+    CodeIcons = 'codeicons',
+    // Kartenvorderseiten des "Gaming"-Themes: echte Icon-Grafiken aus den
+    // "Img/Icons/Game card N.png"-Sprites (siehe THEME_MOTIFS in config.ts).
+    GamingIcons = 'gamingicons',
 }
 
 // Die vier waehlbaren "Game themes" aus dem Figma-Screen "Settings_theme
