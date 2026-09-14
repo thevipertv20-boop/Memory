@@ -1,4 +1,4 @@
-import { BOARD_SIZES, GAME_THEME_CONFIG, GAME_THEMES, PLAYER_COLORS } from './config.js';
+import { BOARD_SIZES, GAME_THEME_CONFIG, GAME_THEME_PREVIEW, GAME_THEMES, PLAYER_COLORS } from './config.js';
 import { BoardSize, GameSettings, GameThemeName, PlayerColor } from './types.js';
 
 /**
@@ -71,6 +71,9 @@ export function initSettings(onStart: (settings: GameSettings) => void): void {
     const playerGroup = document.getElementById('settings-player') as HTMLElement;
     const sizeGroup = document.getElementById('settings-size') as HTMLElement;
     const gameThemeGroup = document.getElementById('settings-gametheme') as HTMLElement;
+    const previewImage = document.getElementById('settings-preview-image') as HTMLImageElement;
+    const previewCrop = document.getElementById('settings-preview-crop') as HTMLElement;
+    const previewCropImage = document.getElementById('settings-preview-crop-image') as HTMLImageElement;
     const startButton = document.getElementById('btn-settings-start') as HTMLButtonElement;
 
     const state: SettingsState = {
@@ -82,8 +85,6 @@ export function initSettings(onStart: (settings: GameSettings) => void): void {
     /**
      * Setzt die Layout-Klasse auf dem body, damit das gewaehlte Game-theme
      * (siehe GAME_THEME_CONFIG) im eigentlichen Spiel als Farbschema greift.
-     * Die Settings-Vorschau selbst ist eine statische Grafik (Img/Theme
-     * Visual.png) und muss dafuer nicht mehr aktualisiert werden.
      */
     function applyLayout(gameTheme: GameThemeName): void {
         const { layout } = GAME_THEME_CONFIG[gameTheme];
@@ -92,6 +93,33 @@ export function initSettings(onStart: (settings: GameSettings) => void): void {
             document.body.classList.remove(`layout--${name}`)
         );
         document.body.classList.add(`layout--${layout}`);
+    }
+
+    /**
+     * Aktualisiert das rechte Vorschau-Panel sofort auf das im "Game themes"-
+     * Fieldset gewaehlte Theme (Figma: Preview reagiert ohne Seitenwechsel
+     * oder zusaetzlichen Klick), siehe GAME_THEME_PREVIEW. Zwei Anzeige-
+     * Modi: 'image' zeigt ein bereits einzeln zugeschnittenes Asset direkt,
+     * 'crop' blendet stattdessen den Ausschnitt-Rahmen ein, der das
+     * Vorschau-Panel aus der vollen Figma-Seitenreferenz herausschneidet
+     * (siehe .settings__preview-crop in _settings.scss).
+     */
+    function updatePreview(gameTheme: GameThemeName): void {
+        const preview = GAME_THEME_PREVIEW[gameTheme];
+
+        if (preview.mode === 'image') {
+            previewImage.src = preview.src;
+            previewImage.width = preview.width;
+            previewImage.height = preview.height;
+            previewImage.alt = preview.alt;
+            previewImage.hidden = false;
+            previewCrop.hidden = true;
+        } else {
+            previewCropImage.src = preview.src;
+            previewCropImage.alt = preview.alt;
+            previewCrop.hidden = false;
+            previewImage.hidden = true;
+        }
     }
 
     function render(): void {
@@ -106,11 +134,13 @@ export function initSettings(onStart: (settings: GameSettings) => void): void {
         renderOptionGroup(gameThemeGroup, GAME_THEMES, state.gameTheme, (value) => {
             state.gameTheme = value;
             applyLayout(value);
+            updatePreview(value);
             render();
         }, true);
     }
 
     applyLayout(state.gameTheme);
+    updatePreview(state.gameTheme);
     render();
 
     startButton.addEventListener('click', () => {

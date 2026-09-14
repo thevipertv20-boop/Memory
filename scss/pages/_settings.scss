@@ -197,15 +197,52 @@
 }
 
 .settings__preview-image {
-    // Figma-Asset "Img/Theme Visual.png": fertiges Vorschau-Panel (dunkler
-    // Rahmen, HUD-Zeile, beide Karten) bereits vollstaendig als Grafik
-    // exportiert (460x412px Original) - kein Nachbau mehr per CSS/Karten-
-    // Komponente noetig.
+    // Figma-Assets "Img/Theme Visual.png" (Code vibes) / "Img/Frame 628 (1).png"
+    // (Gaming): fertiges Vorschau-Panel (dunkler Rahmen, HUD-Zeile, beide
+    // Karten) bereits vollstaendig als eigene, zugeschnittene Grafik
+    // exportiert - kein Nachbau mehr per CSS/Karten-Komponente noetig.
     display: block;
     width: 100%;
     max-width: 28.75rem; // 460px
     height: auto;
     border-radius: $radius-card;
+}
+
+// "DA Projects"/"Foods": es liegt (anders als bei Code vibes/Gaming) kein
+// eigens zugeschnittenes Vorschau-Asset vor, nur die volle Figma-Settings-
+// Seitenreferenz ("Img/Content14.png" / "Content15.png", je 1112x668px).
+// Das Vorschau-Panel darin sitzt bei allen Referenzen (auch Content5.png
+// fuer Code vibes) exakt bei x=651/y=129 mit 460x412px Groesse - dieser
+// Rahmen zeigt per CSS-Crop (Original-Bild ueberdimensioniert + versetzt,
+// Rahmen schneidet den Rest ab) exakt diesen Bereich, ohne eine neue
+// Asset-Datei zu erzeugen.
+.settings__preview-crop {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 28.75rem; // 460px
+    aspect-ratio: 460 / 412;
+    overflow: hidden;
+    border-radius: $radius-card;
+}
+
+// "display: block" oben gewinnt sonst gegen die native [hidden]-UA-Regel
+// (Autor-Styles schlagen UA-Styles unabhaengig von Spezifitaet) - ts/settings.ts
+// blendet je nach Theme-Modus eines der beiden Elemente per [hidden] aus,
+// das braucht hier einen expliziten Override (gleiches Muster wie
+// .gameover__confetti[hidden] in _gameover.scss).
+.settings__preview-image[hidden],
+.settings__preview-crop[hidden] {
+    display: none;
+}
+
+.settings__preview-crop-image {
+    position: absolute;
+    left: -141.5217%; // -651/460 * 100
+    top: -31.3107%; // -129/412 * 100
+    width: 241.7391%; // 1112/460 * 100
+    max-width: none;
+    height: auto;
 }
 
 // Figma-Asset "Img/selection + button.png": komplette Leiste (Labels,
@@ -337,7 +374,8 @@
 
     // Img/Theme Visual.png ist bereits exakt 460 x 412px (Original-Export) -
     // in der 1440px-Ansicht 1:1 in Originalgroesse zeigen.
-    .settings__preview-image {
+    .settings__preview-image,
+    .settings__preview-crop {
         max-width: 460px;
     }
 

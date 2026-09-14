@@ -49,6 +49,9 @@ export function startGame(
 ): void {
     const board = document.getElementById('board') as HTMLElement;
     const exitButton = document.getElementById('btn-exit-game') as HTMLButtonElement;
+    const exitPopup = document.getElementById('exit-popup') as HTMLElement;
+    const exitCancelButton = document.getElementById('btn-exit-cancel') as HTMLButtonElement;
+    const exitConfirmButton = document.getElementById('btn-exit-confirm') as HTMLButtonElement;
     const { cols } = BOARD_DIMENSIONS[settings.boardSize];
 
     board.innerHTML = '';
@@ -118,5 +121,19 @@ export function startGame(
         board.appendChild(element);
     });
 
-    exitButton.onclick = onExit;
+    // "Exit Game" oeffnet erst die Bestaetigungs-Popup (Bild + Trefferflaechen
+    // oben bereits passend zum Game-theme gesetzt), statt das Spiel sofort zu
+    // beenden. "Yes, quit game" ruft "onExit" auf (Runde beenden, zurueck zu
+    // Settings - siehe ts/main.ts), "No, back to game" schliesst die Popup nur
+    // wieder und das laufende Spiel bleibt unveraendert.
+    exitButton.onclick = () => {
+        exitPopup.hidden = false;
+    };
+    exitCancelButton.onclick = () => {
+        exitPopup.hidden = true;
+    };
+    exitConfirmButton.onclick = () => {
+        exitPopup.hidden = true;
+        onExit();
+    };
 }

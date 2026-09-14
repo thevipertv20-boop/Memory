@@ -1,0 +1,13 @@
+// Layout "DA Projects": identisches Farbschema wie Classic (siehe
+// _theme-classic.scss) - "DA Projects" braucht keine eigene Farbwelt, nur
+// eine eigene Kartenrueckseite (Img/Icons/Rectangle 38.png, siehe
+// components/_card.scss). Als eigener Layout-Name gefuehrt, damit "Foods"
+// (bleibt auf .layout--classic) davon unberuehrt bleibt.
+
+.layout--daprojects {
+    --color-bg: #f4f1ea;
+    --color-surface: #ffffff;
+    --color-accent: #2f6f5f;
+    --color-text: #22282e;
+    --color-card-back: #3b5d9c;
+}

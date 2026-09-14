@@ -48,7 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
         startGame(
             settings,
             () => {
-                showScreen(screens.home, allScreens);
+                // "Exit Game" -> "Yes, quit game": aktuelle Runde beenden und
+                // zurueck zu den Settings (nicht Home), damit Game Theme/
+                // Player/Board Size neu gewaehlt werden koennen.
+                showScreen(screens.settings, allScreens);
             },
             (scores: Scores) => {
                 showScreen(screens.gameover, allScreens);

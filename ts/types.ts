@@ -18,6 +18,12 @@ export enum LayoutName {
     Classic = 'classic',
     Neon = 'neon',
     Gaming = 'gaming',
+    // Eigenes Layout nur fuer "DA Projects": identisches Farbschema wie
+    // Classic (siehe scss/themes/_theme-daprojects.scss), aber mit eigener
+    // Kartenrueckseite (Img/Icons/Rectangle 38.png) - dafuer als eigener
+    // Layout-Name gefuehrt, damit "Foods" (bleibt auf Classic) unberuehrt
+    // bleibt.
+    DaProjects = 'daprojects',
 }
 
 export enum ThemeName {
@@ -29,6 +35,9 @@ export enum ThemeName {
     // Kartenvorderseiten des "Gaming"-Themes: echte Icon-Grafiken aus den
     // "Img/Icons/Game card N.png"-Sprites (siehe THEME_MOTIFS in config.ts).
     GamingIcons = 'gamingicons',
+    // Kartenvorderseiten des "DA Projects"-Themes: 18 Projekt-Icons aus
+    // Img/Icons (siehe THEME_MOTIFS in config.ts).
+    DaProjectsIcons = 'daprojectsicons',
 }
 
 // Die vier waehlbaren "Game themes" aus dem Figma-Screen "Settings_theme

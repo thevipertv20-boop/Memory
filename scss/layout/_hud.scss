@@ -201,3 +201,127 @@
     border-radius: 50%;
     background: var(--active-player-color, transparent);
 }
+
+// ---------------------------------------------------------------------
+// Exit-Game-Bestaetigungs-Popup: abgedunkeltes Spielfeld + weisser
+// abgerundeter Panel-Container (echtes CSS, gehoert zum Popup-Rahmen
+// selbst - keine Dekoration HINTER einem Button-PNG) mittig, darin die
+// Frage als echter Text und zwei echte Original-Figma-Button-Grafiken als
+// Hintergrundbild auf echten <button>-Elementen:
+// "No, back to game" -> Img/Icons/Property 12=default.png (Normal) /
+//   Property 4=Hover.png (Hover)
+// "Exit game" -> Img/Icons/Property 1=Default.png (Normal) /
+//   Property 1=hover.png (Hover)
+// Reiner 1:1-Bildtausch bei :hover/:focus-visible (background-image
+// wechselt), keine zusaetzliche Farbe/Rahmen/Schatten/Filter/Skalierung -
+// die PNGs werden unveraendert und unueberlagert angezeigt.
+// ---------------------------------------------------------------------
+
+.exit-popup[hidden] {
+    display: none;
+}
+
+.exit-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-md;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+// Weiches Einblenden beim Oeffnen: [hidden] setzt display:none (kein
+// Animationsziel), sobald das Attribut entfernt wird (ts/game.ts) startet
+// diese Animation automatisch neu (Browser-Verhalten bei display:none -> flex).
+@keyframes exit-popup-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.exit-popup:not([hidden]) {
+    animation: exit-popup-fade-in 220ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .exit-popup:not([hidden]) {
+        animation: none;
+    }
+}
+
+.exit-popup__panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-lg;
+    max-width: 100%;
+    padding: $spacing-lg;
+    background: #ffffff;
+    border-radius: $radius-card * 2;
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+.exit-popup__question {
+    margin: 0;
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #22282e;
+}
+
+.exit-popup__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $spacing-sm;
+    width: 100%;
+}
+
+// Buttons zeigen ausschliesslich die Original-PNGs als Hintergrundbild -
+// kein "background"-Farbwert, kein "border", kein "box-shadow": nur die
+// Grafik selbst, in ihrer eigenen Groesse/Transparenz.
+.exit-popup__button {
+    display: block;
+    width: 10rem;
+    max-width: 100%;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.exit-popup__button:focus-visible {
+    outline: 3px solid #000;
+    outline-offset: 2px;
+}
+
+// "No, back to game" (Normal) / "Back to game" (Hover).
+.exit-popup__button--cancel {
+    aspect-ratio: 201 / 44;
+    background-image: url("../Img/Icons/Property 12=default.png");
+}
+
+.exit-popup__button--cancel:hover,
+.exit-popup__button--cancel:focus-visible {
+    background-image: url("../Img/Icons/Property 4=Hover.png");
+}
+
+// "Exit game" (Normal/Hover).
+.exit-popup__button--confirm {
+    aspect-ratio: 195 / 54;
+    background-image: url("../Img/Icons/Property 1=Default.png");
+}
+
+.exit-popup__button--confirm:hover,
+.exit-popup__button--confirm:focus-visible {
+    background-image: url("../Img/Icons/Property 1=hover.png");
+}

@@ -25,6 +25,54 @@
     letter-spacing: 0.04em;
 }
 
+// Figma-Asset "Img/Confetti.png": nur bei Winner Orange/Blue oben sichtbar,
+// bei Draw ausgeblendet (siehe ts/gameover.ts). Beim Erscheinen explodiert
+// es einmalig radial aus der Mitte nach aussen (.gameover__confetti--explode
+// wird von ts/gameover.ts bei jedem Winner-Ausgang neu getriggert), bleibt
+// danach aber ruhig stehen - kein Dauer-Loop.
+.gameover__confetti[hidden] {
+    display: none;
+}
+
+.gameover__confetti {
+    display: block;
+    width: 100%;
+    max-width: 28rem;
+    height: auto;
+    pointer-events: none;
+    transform-origin: 50% 42%;
+}
+
+.gameover__confetti--explode {
+    animation: gameover-confetti-explode 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes gameover-confetti-explode {
+    from {
+        transform: scale(0.12);
+        opacity: 0;
+    }
+
+    45% {
+        opacity: 1;
+    }
+
+    78% {
+        transform: scale(1.05);
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gameover__confetti--explode {
+        animation: none;
+    }
+}
+
 // Sichtbarer Text ist durch die Figma-Assets (Winner/Draw-Bilder) ersetzt,
 // bleibt aber fuer Screenreader erhalten.
 .gameover__result-sr {
@@ -64,6 +112,44 @@
 .gameover__outcome-image {
     display: block;
     max-width: 100%;
+    height: auto;
+}
+
+// "DA Projects" hat keine eigene Original-Datei fuer "Winner Orange" (nur
+// Content21.png, zeigt Blau) - dieselbe Datei wird per Filter orange
+// eingefaerbt (keine neue Grafik, nur eine Farbvariante des Originals,
+// Wert experimentell gegen die Projekt-Orange-Akzente [#d9720b/#e8853a]
+// abgestimmt).
+.gameover__outcome-image--recolor-orange {
+    filter: hue-rotate(190deg) saturate(3);
+}
+
+// Img/Content21.png enthaelt oben (y 0-195 von 567px) fest eingezeichneten,
+// nur auf dunklem Grund sichtbaren weissen Text "The winner is/Blue Player"
+// (auf Weiss unsichtbar, daher beim ersten Sichten uebersehen). Das waere
+// beim Orange-Ausgang (per Filter eingefaerbte Kopie derselben Datei)
+// inhaltlich falsch ("Blue Player" bliebe stehen) und bei Blau eine Dopplung
+// zum sichtbaren "Game Over"-Titel - daher fuer beide DA-Projects-Winner-
+// Faelle per CSS-Crop ausgeblendet (der sichtbare Titel + die Bauernfarbe
+// zeigen den Gewinner stattdessen an), analog zur .settings__preview-crop-
+// Technik in _settings.scss: Bild ueberdimensioniert + nach oben versetzt,
+// Rahmen (.gameover__outcome) schneidet den Textbereich ab, damit Bauer +
+// Home-Button ohne Luecke oben im verfuegbaren Platz sitzen. ts/gameover.ts
+// setzt die Klick-Trefferflaeche dafuer relativ zur NEUEN (beschnittenen)
+// Bildhoehe (372 von urspruenglich 567px).
+.gameover__outcome--daprojects-winner {
+    width: 25.4375rem; // 407px (Original-Bildbreite, unveraendert)
+    max-width: 100%;
+    aspect-ratio: 407 / 372; // 567 - 195px abgeschnittener Textbereich
+    overflow: hidden;
+}
+
+.gameover__outcome--daprojects-winner .gameover__outcome-image {
+    position: absolute;
+    left: 0;
+    top: -52.43%; // -195/372 * 100, siehe .settings__preview-crop-image
+    width: 100%;
+    max-width: none;
     height: auto;
 }
 

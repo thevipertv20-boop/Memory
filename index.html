@@ -108,7 +108,17 @@
                     </div>
 
                     <div class="settings__preview">
-                        <img class="settings__preview-image" src="Img/Theme Visual.png" width="460" height="412" alt="Vorschau: Code vibes Theme">
+                        <img id="settings-preview-image" class="settings__preview-image" src="Img/Theme Visual.png" width="460" height="412" alt="Vorschau: Code vibes Theme">
+                        <!-- Fuer "DA Projects"/"Foods" liegt kein eigens zugeschnittenes
+                             Vorschau-Asset vor (anders als Theme Visual.png/Frame 628 (1).png
+                             fuer Code vibes/Gaming), nur die volle Figma-Seitenreferenz
+                             (Img/Content14.png / Content15.png). Dieser Ausschnitt-Rahmen
+                             zeigt daher exakt den 460x412px-Vorschau-Bereich aus der
+                             jeweiligen Original-Referenz (siehe .settings__preview-crop in
+                             _settings.scss) - keine neue Asset-Datei, nur ein CSS-Crop. -->
+                        <div id="settings-preview-crop" class="settings__preview-crop" hidden>
+                            <img id="settings-preview-crop-image" class="settings__preview-crop-image" src="" alt="">
+                        </div>
                     </div>
                 </div>
 
@@ -144,6 +154,26 @@
 
             <div id="board" class="board"></div>
         </div>
+
+        <!-- Exit-Game-Bestaetigungs-Popup: abgedunkelter Hintergrund + weisser
+             abgerundeter Panel-Container, darin die Frage als echter Text und
+             zwei echte Original-Figma-Buttons als Hintergrundbild auf echten
+             <button>-Elementen (kein Nachbau, keine Ueberlagerung, kein
+             Rahmen/Hintergrund hinter den PNGs - siehe .exit-popup__button in
+             layout/_hud.scss):
+             "No, back to game" -> Img/Icons/Property 12=default.png (Normal)
+             / Property 4=Hover.png (Hover)
+             "Exit game" -> Img/Icons/Property 1=Default.png (Normal) /
+             Property 1=hover.png (Hover) -->
+        <div id="exit-popup" class="exit-popup" hidden>
+            <div class="exit-popup__panel">
+                <p class="exit-popup__question">Are you sure you want to quit the game?</p>
+                <div class="exit-popup__actions">
+                    <button id="btn-exit-cancel" class="exit-popup__button exit-popup__button--cancel" type="button" aria-label="Back to game"></button>
+                    <button id="btn-exit-confirm" class="exit-popup__button exit-popup__button--confirm" type="button" aria-label="Exit game"></button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Screen: Game Over (Overlay) -->
@@ -156,7 +186,10 @@
          Button. -->
     <section id="screen-gameover" class="screen screen--overlay" hidden>
         <div class="gameover">
-            <h1 class="gameover__title">Game Over</h1>
+            <!-- Figma-Asset "Img/Confetti.png": nur bei Winner Orange/Blue
+                 sichtbar, nicht bei Draw (siehe ts/gameover.ts). -->
+            <img id="gameover-confetti" class="gameover__confetti" src="Img/Confetti.png" alt="">
+            <h1 id="gameover-title" class="gameover__title">Game Over</h1>
             <p id="gameover-result" class="gameover__result-sr"></p>
 
             <div class="gameover__scores">
@@ -170,7 +203,7 @@
                 </div>
             </div>
 
-            <div class="gameover__outcome">
+            <div id="gameover-outcome" class="gameover__outcome">
                 <img id="gameover-outcome-image" class="gameover__outcome-image" src="" alt="">
                 <button id="btn-new-round" class="gameover__outcome-hit" type="button" aria-label="Play Again"></button>
             </div>
